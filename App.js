@@ -47,9 +47,8 @@ export default class App extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        >
-          <Marker coordinate={this.state} />
-        </MapView>
+          showsUserLocation={true}
+        />
       </View>
     );
   }
