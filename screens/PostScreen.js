@@ -8,13 +8,6 @@ import {
   StatusBar,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import Geolocation from '@react-native-community/geolocation';
 
 export default class PostScreen extends Component {

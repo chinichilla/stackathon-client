@@ -1,54 +1,32 @@
-import React, { Fragment, Component } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import Geolocation from '@react-native-community/geolocation';
+import React, { Component } from 'react';
+import { StyleSheet, Button, View } from 'react-native';
+import PostScreen from './screens/PostScreen';
+import MapScreen from './screens/MapScreen';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      latitude: 0,
-      longitude: 0,
+      isPoster: false,
+      isViewer: false,
     };
   }
 
-  componentDidMount() {
-    Geolocation.getCurrentPosition(position => {
-      this.setState({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
-  }
-
   render() {
+    if (this.state.isPoster) {
+      return <PostScreen />;
+    }
+    if (this.state.isViewer) {
+      return <MapScreen />;
+    }
+
     return (
       <View style={styles.container}>
-        <MapView
-          // maybe switch to google maps here using provider
-          style={styles.map}
-          region={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          showsUserLocation={true}
+        <Button
+          onPress={() => this.setState({ isPoster: true })}
+          title="Post"
         />
+        <Button onPress={() => this.setState({ isViewer: true })} title="Map" />
       </View>
     );
   }
@@ -56,13 +34,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    // height: 300,
-    // width: 400,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    marginTop: 50,
   },
 });
